@@ -70,27 +70,9 @@ Para trabalhar com os documentos, precisamos, no mínimo, de um **identificador*
 Vamos ler o **CSV completo** dos parques nacionais. O código procura primeiro o arquivo na pasta `data/` e, caso ele não esteja disponível, utiliza o endereço público deste repositório. Enquanto o arquivo não estiver publicado aqui, recorre à fonte original da coleta. Observe que o separador do CSV é ponto e vírgula; por isso, usamos `read_csv2()` em vez de `read_csv()`.
 
 ```{r ler-corpus}
-url_dados <- paste0(
-  "https://raw.githubusercontent.com/leobarone/",
-  "cebrap-lab-analise-textos-r-2026-virtual/main/",
-  "data/tabelas-parques-utf8.csv"
-)
-
-arquivo_dados <- "data/tabelas-parques-utf8.csv"
-origem_dados <- if (file.exists(arquivo_dados)) arquivo_dados else url_dados
-
-corpus_docs <- tryCatch(
-  readr::read_csv2(
-    origem_dados,
-    locale = readr::locale(encoding = "UTF-8"),
-    show_col_types = FALSE
-  ),
-  error = function(e) readr::read_csv2(
-    "https://raw.githubusercontent.com/leobarone/aula-cci-webscraping-text/master/data/tabelas-parques-utf8.csv",
-    locale = readr::locale(encoding = "UTF-8"),
-    show_col_types = FALSE
-  )
-) %>%
+corpus_docs <- read_csv2("https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/tabelas-parques-utf8.csv")
+                                  
+corpus_docs <- corpus_docs %>%  
   rename(
     url_parque = url_pagina_parque,
     texto = texto_parque
