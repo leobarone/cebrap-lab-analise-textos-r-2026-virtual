@@ -1,0 +1,172 @@
+# Tutorial 0 — Preparação para trabalhar com R
+
+**Revisão opcional · Análise quantitativa de texto com R**
+
+Este tutorial é destinado a quem precisa retomar algumas operações de R antes da primeira aula. Usaremos uma pequena tabela de parques nacionais, fornecida junto aos materiais. O objetivo não é estudar textos ainda, mas praticar a leitura de dados, a organização de tabelas e a construção de expressões com o `tidyverse`.
+
+Ao terminar, você deverá conseguir executar os blocos de código dos Tutoriais 1 e 2 e entender o que acontece quando usamos funções como `select()`, `filter()`, `mutate()`, `count()` e `group_by()`.
+
+## 1. Preparar o ambiente
+
+Para executar os exercícios, instale o [R](https://cran.r-project.org/) e, se desejar, o [RStudio Desktop](https://posit.co/download/rstudio-desktop/). O R executa os comandos; o RStudio é uma interface que facilita a edição de código, a inspeção de tabelas e a organização de projetos.
+
+Abra a pasta do curso no RStudio pelo arquivo `cebrap-lab-analise-textos-r-2026-virtual.Rproj`. Isso evita confundir o diretório de trabalho com a localização dos tutoriais. Confira:
+
+```r
+getwd()
+list.files()
+list.files("data")
+```
+
+Os pacotes acrescentam funções à instalação básica do R. O comando `install.packages()` instala um pacote; `library()` o torna disponível na sessão. Instale os pacotes uma vez, se necessário:
+
+```r
+install.packages(c("tidyverse", "tidytext", "tm", "stopwords", "wordcloud", "widyr", "Matrix"))
+```
+
+Para começar este tutorial, basta carregar o `tidyverse`:
+
+```r
+library(tidyverse)
+```
+
+Não é preciso executar `install.packages()` a cada nova sessão. Quando abrir o R novamente, carregue os pacotes com `library()`.
+
+## 2. Objetos, vetores e funções
+
+Em R, o operador `<-` atribui um valor a um objeto. A função `c()` reúne valores em um vetor:
+
+```r
+quantidades <- c(12, 18, 7, 25)
+quantidades
+
+sum(quantidades)
+mean(quantidades)
+length(quantidades)
+```
+
+Uma função recebe argumentos entre parênteses. Em `mean(quantidades)`, por exemplo, estamos calculando a média dos valores do vetor. Para consultar a documentação de uma função, utilize `?mean` ou `help("mean")`.
+
+Também podemos trabalhar com vetores de caracteres e valores lógicos:
+
+```r
+nomes <- c("Iguaçu", "Amazônia", "Serra da Capivara")
+nomes
+
+c(TRUE, FALSE, TRUE)
+
+nomes == "Amazônia"
+```
+
+O símbolo `==` serve para comparar valores. Um único `=` costuma ser usado para passar argumentos a uma função; não é o operador de comparação.
+
+## 3. Data frames: uma linha por observação
+
+Um `data.frame` ou uma `tibble` organiza observações em linhas e variáveis em colunas. Vamos abrir a pequena base de revisão da pasta `data/`:
+
+```r
+parques <- readr::read_csv(
+  "data/parques_exemplo_didatico.csv",
+  show_col_types = FALSE
+)
+
+parques
+names(parques)
+glimpse(parques)
+```
+
+A tabela contém um identificador (`id`), o nome de um parque (`parque`), sua região (`regiao`) e um texto curto (`texto`). Cada linha é um parque. No Tutorial 1, substituiremos essa amostra por uma coleção de páginas completas da Wikipédia.
+
+Para inspecionar apenas algumas linhas e variáveis:
+
+```r
+parques %>%
+  select(id, parque, regiao) %>%
+  slice_head(n = 5)
+```
+
+O operador `%>%` encaminha o resultado da expressão à esquerda para a função seguinte. É a forma mais utilizada nos exemplos deste curso para encadear operações. O R recente também dispõe do operador `|>`, com uma ideia semelhante.
+
+## 4. Selecionar, filtrar e transformar
+
+A função `select()` escolhe colunas; `filter()` mantém linhas que satisfazem uma condição; `mutate()` cria ou modifica colunas:
+
+```r
+parques %>%
+  filter(regiao == "Nordeste") %>%
+  select(parque, regiao)
+
+parques_com_tamanho <- parques %>%
+  mutate(n_caracteres = stringr::str_length(texto))
+
+parques_com_tamanho %>%
+  select(parque, n_caracteres) %>%
+  arrange(desc(n_caracteres))
+```
+
+Repare que a variável `texto` ainda contém uma string inteira. `str_length()` mede seu comprimento em caracteres, não o número de palavras. No Tutorial 1 estudaremos outras funções que começam com `str_`.
+
+Outra operação frequente é combinar uma condição com uma busca no texto:
+
+```r
+parques %>%
+  filter(stringr::str_detect(texto, "trilhas")) %>%
+  select(parque, regiao)
+```
+
+## 5. Contar e agrupar
+
+Com `count()`, obtemos a frequência das categorias de uma variável:
+
+```r
+parques %>%
+  count(regiao, sort = TRUE)
+```
+
+Para cálculos por grupo, podemos usar `group_by()` seguido de `summarise()`:
+
+```r
+parques %>%
+  mutate(n_caracteres = stringr::str_length(texto)) %>%
+  group_by(regiao) %>%
+  summarise(
+    documentos = n(),
+    tamanho_medio = mean(n_caracteres),
+    .groups = "drop"
+  )
+```
+
+Nesses exemplos, a unidade de observação continua sendo o parque. Mais adiante, ao tokenizar o texto, passaremos a ter uma **linha por ocorrência de palavra**. A mudança da unidade de análise será um dos temas centrais da aula.
+
+## 6. Ler arquivos CSV e RDS
+
+Um arquivo CSV é uma tabela em formato de texto. Ele pode ser separado por vírgulas (`read_csv()`) ou por ponto e vírgula (`read_csv2()`). Para arquivos em português, a função adequada depende de como o arquivo foi gravado.
+
+Um arquivo RDS armazena um objeto do R. No Tutorial 2, utilizaremos o corpus dos quatro romances de Machado de Assis:
+
+```r
+romances <- readr::read_rds("data/corpus_machado_4_romances.rds")
+
+glimpse(romances)
+```
+
+É possível ler um arquivo RDS sem precisar criar a estrutura novamente. Essa diferença será importante quando partirmos de um corpus já preparado.
+
+## 7. Quando o código não funciona
+
+Alguns problemas frequentes têm soluções simples:
+
+- **`could not find function`**: confira se o pacote correspondente foi carregado com `library()` ou utilize `pacote::funcao()`.
+- **`object not found`**: execute o bloco que cria o objeto antes de utilizá-lo.
+- **`cannot open file`**: confira `getwd()`, a pasta `data/` e o nome do arquivo.
+- **Resultados inesperados**: execute uma operação por vez e examine os objetos com `glimpse()`, `head()` e `count()`.
+
+## Para experimentar
+
+1. Liste os parques da região Norte.
+2. Calcule o número de caracteres de cada texto e identifique o maior.
+3. Conte quantos parques aparecem em cada região.
+4. Busque os documentos que mencionam `floresta`. A pesquisa distingue maiúsculas de minúsculas?
+5. Experimente trocar o separador de leitura do CSV. Por que o resultado muda?
+
+**Próximo:** [Tutorial 1 — Textos como dados: dos parques nacionais às palavras](01_textos_como_dados_parques.md).
