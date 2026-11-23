@@ -31,7 +31,7 @@ Mais do que conhecer funções ou algoritmos isolados, o objetivo é compreender
 
 A oficina é destinada a estudantes, pesquisadores e profissionais que desejam analisar coleções de textos em R. Para acompanhar os exercícios, é recomendável conhecer operações básicas com objetos, vetores, *data frames* e funções do `dplyr`. Não é necessário ter experiência prévia com `tidytext` ou aprendizado de máquina.
 
-Quem precisar rever esses conteúdos pode começar pelo **[Tutorial 0 — Preparação para trabalhar com R](tutoriais/00_preparacao_r.md)**. Essa revisão é opcional e apresenta os conceitos e operações de R utilizados nos exemplos.
+Quem precisar rever esses conteúdos pode começar pelo **[Tutorial 0 — Preparação para trabalhar com R](tutoriais/00_tutorial_inicial_r.md)**. Essa revisão é opcional e apresenta os conceitos e operações de R utilizados nos exemplos.
 
 ## Programa das aulas
 
@@ -74,7 +74,7 @@ No terceiro encontro, estudaremos situações nas quais, além dos textos, conhe
 
 | Material | Conteúdo | Arquivos |
 |---|---|---|
-| **Tutorial 0 (opcional)** | Revisão de R, RStudio, `tidyverse` e operações com *data frames* | [Markdown](tutoriais/00_preparacao_r.md) · [R Markdown](tutoriais/00_preparacao_r.Rmd) |
+| **Tutorial 0 (opcional)** | Revisão de R, RStudio, `tidyverse` e operações com *data frames* | [Markdown](tutoriais/00_tutorial_inicial_r.md) · [R Markdown](tutoriais/00_tutorial_inicial_r.Rmd) |
 | **Tutorial 1** | Preparação, tokenização e exploração dos textos dos parques nacionais | [Markdown](tutoriais/01_textos_como_dados_parques.md) · [R Markdown](tutoriais/01_textos_como_dados_parques.Rmd) |
 | **Tutorial 2** | Representações textuais e exemplos com quatro romances de Machado de Assis | [Markdown](tutoriais/02_representacoes_textuais.md) · [R Markdown](tutoriais/02_representacoes_textuais.Rmd) |
 
