@@ -1,88 +1,113 @@
-# Análise quantitativa de texto com R
+# Análise de textos com R
 
-**cebrap.lab · Curso virtual · 23, 24 e 26 de novembro de 2026**  
-**Professor:** Leonardo Sangali Barone
+**CEBRAP Lab · Oficina virtual · Novembro de 2026**  
+**Instrutor:** Leonardo Sangali Barone
 
-Este repositório reúne os materiais do curso **Análise quantitativa de texto com R**. Os tutoriais e as bases de dados são disponibilizados conforme o andamento das aulas.
+Este curso dá continuidade à oficina [Captura de dados na internet com R](https://github.com/leobarone/cebrap-lab-raspagem-r-2026-virtual). Partimos de coleções de textos já organizadas para aprender a preparar documentos, construir representações, explorar padrões e, finalmente, estimar e avaliar modelos de aprendizado de máquina.
 
-## Apresentação
+A pergunta que orienta o curso é: **como transformar textos em dados para responder a perguntas de pesquisa?** Ao longo dos encontros, distinguiremos a organização dos dados, a representação dos documentos e os modelos utilizados na análise.
 
-Depois de coletar dados de páginas da internet, APIs, relatórios ou documentos, frequentemente terminamos com tabelas que contêm textos. Como transformar esses textos em dados para análise? O que conseguimos observar quando contamos palavras ou comparamos documentos? Como identificar sentimentos, relações entre palavras e temas recorrentes? E como utilizar o conteúdo textual para prever uma categoria de interesse?
+## Encontros
 
-O curso percorre essas perguntas utilizando **R** e ferramentas do ecossistema **`tidyverse`**. O curso dá continuidade à oficina [Captura de dados na internet com R](https://github.com/leobarone/cebrap-lab-raspagem-r-2026-virtual): partimos dos documentos já coletados para aprender a organizá-los, prepará-los, representá-los e analisá-los.
+| Encontro | Data | Tema | Material | Carga |
+|---|---|---|---|---:|
+| 1 | 23/11/2026 (segunda-feira) | Texto como dado e representações textuais | Tutoriais 1 e 2 | 4h |
+| **2** | **24/11/2026 (terça-feira)** | **Modelagem de tópicos: do TF-IDF ao LDA** | **Tutorial 3** | **4h** |
+| 3 | 26/11/2026 (quinta-feira) | Aprendizado supervisionado de textos | Material a publicar | 4h |
 
-O percurso está dividido em três momentos. No primeiro, aprenderemos a tratar **texto como dado**, da preparação de um corpus às representações de textos como dado utilizadas em análises e modelos. No segundo, utilizaremos modelos **aprendizado não supervisionado** para explorarmos as coleções de textos. No terceiro, abordaremos **aprendizado supervisionado**, acompanhando as etapas que vão da definição de um problema à avaliação de previsões.
+**Carga horária:** 20 horas (12 horas síncronas e 8 horas assíncronas, em duas atividades de 4 horas).
 
-Mais do que conhecer funções ou algoritmos isolados, o objetivo é compreender as decisões que conectam uma pergunta de pesquisa, a organização dos textos, a escolha de uma representação e a interpretação dos resultados.
+## Aula 1 — Texto como dado e representações textuais
 
-## Encontros e carga horária
+**23/11/2026 · 4 horas**
 
-| Encontro | Data | Tema | Carga horária |
-|---|---|---|---:|
-| **Aula 1** | **23/11/2026 (segunda-feira)** | Texto como dado: preparação, representações e perda de informação | 3 horas |
-| **Aula 2** | **24/11/2026 (terça-feira)** | Exploração de textos: sentimentos, relações entre palavras e modelagem de tópicos | 3 horas |
-| **Aula 3** | **26/11/2026 (quinta-feira)** | Aprendizado supervisionado: preparação, treinamento e avaliação de modelos | 3 horas |
+Começamos com textos dos verbetes da Wikipédia sobre parques nacionais e, em seguida, utilizamos quatro romances de Machado de Assis para comparar diferentes representações de um corpus. Discutimos o que cada representação preserva e o que se perde ao transformar textos em dados.
 
-**Modalidade:** encontros virtuais síncronos. **Horários:** a confirmar, no horário de Brasília.
+- **Tutorial 0 — Revisão de R e `dplyr` (opcional):** disponível na pasta [`tutoriais/`](tutoriais/), para quem precisar retomar a manipulação de tabelas.
+- **Tutorial 1 — Textos como dados: dos parques nacionais às palavras:** [R Markdown](tutoriais/01_textos_como_dados_parques.Rmd). Organização do corpus, preparação dos textos, tokenização, stopwords e contagem de palavras.
+- **Tutorial 2 — Como representar textos para análise e modelagem?:** [R Markdown](tutoriais/02_representacoes_textuais.Rmd). Bag-of-words, TF, DF, IDF, TF-IDF, DTM/DFM, n-gramas, coocorrências e embeddings. Usamos *Memórias Póstumas de Brás Cubas*, *Quincas Borba*, *Dom Casmurro* e *Esaú e Jacó*, considerando cada romance como um documento.
 
-**Carga horária total:** 15 horas, sendo **9 horas síncronas** e **6 horas assíncronas**, distribuídas em duas atividades de três horas.
+## Aula 2 — Do TF-IDF à modelagem de tópicos
 
-## Público e preparação
+**24/11/2026 · 4 horas**
 
-A oficina é destinada a estudantes, pesquisadores e profissionais que desejam analisar coleções de textos em R. Para acompanhar os exercícios, é recomendável conhecer operações básicas com objetos, vetores, *data frames* e funções do `dplyr`. Não é necessário ter experiência prévia com `tidytext` ou aprendizado de máquina.
+Neste encontro, vamos trabalhar exclusivamente com o **Tutorial 3**, utilizando uma coleção de discursos de Lula em seu terceiro mandato, coletados no site oficial da Presidência da República. Retomaremos o que aprendemos no Tutorial 2 para passar das representações textuais a um modelo de aprendizado não supervisionado.
 
-Quem precisar rever esses conteúdos pode começar pelo **[Tutorial 0 — Preparação para trabalhar com R](tutoriais/00_tutorial_inicial_r.md)**. Essa revisão é opcional e apresenta os conceitos e operações de R utilizados nos exemplos.
+### Tutorial 3 — Dos pesos TF-IDF à modelagem de tópicos nos discursos de Lula
 
-## Programa das aulas
+**[Abrir o Tutorial 3 (R Markdown)](tutoriais/03_modelagem_topicos_lula.Rmd)**
 
-### Aula 1 — Texto como dado: preparação e representações
+Vamos identificar palavras distintivas de cada discurso e, a partir das contagens, estimar um modelo LDA com seis tópicos. Não informaremos ao modelo quais são os assuntos dos discursos. Depois de estimá-lo, examinaremos os resultados para interpretar os padrões de vocabulário encontrados.
 
-**Segunda-feira, 23/11 · 4 horas · Tutoriais 1 e 2**
+O percurso da aula será:
 
-Neste primeiro encontro reconhecer o que constitui um documento, inspecionar seus metadados e preparar o conteúdo textual. Depois, transformaremos textos em tokens, calcularemos frequências e estudaremos as formas de representar palavras e documentos numericamente.
+1. Carregar o corpus, tokenizar os discursos e retirar stopwords e tokens exclusivamente numéricos.
+2. Retomar a contagem de palavras por documento e os pesos TF-IDF.
+3. Compreender o LDA como modelo probabilístico generativo: tópicos como distribuições de palavras e documentos como misturas de tópicos.
+4. Selecionar o vocabulário, construir a matriz documento-termo de contagens e ajustar o modelo de seis tópicos.
+5. Interpretar **beta** (distribuição de palavras por tópico) e **gamma** (mistura de tópicos por discurso), examinando os termos e os títulos dos discursos mais representativos.
+6. Experimentar o número de tópicos, a semente e os filtros de vocabulário, discutindo o papel das decisões do analista.
 
-A questão que orienta o encontro é: **o que cada transformação permite observar e que informações do texto deixam de ser preservadas?**
+A ideia é compreender a distinção entre **representação textual e modelo**: o TF-IDF é utilizado para explorar o vocabulário distintivo, enquanto o LDA clássico recebe a matriz de contagens inteiras. Os tópicos não são categorias previamente rotuladas, e seus nomes dependem da nossa interpretação dos resultados.
 
-#### Tutorial 1 — Textos como dados: dos parques nacionais às palavras
+**Leitura de referência:** Silge e Robinson, *Text Mining with R*, [capítulo 3 (TF-IDF)](https://www.tidytextmining.com/tfidf), [capítulo 5 (matrizes documento-termo)](https://www.tidytextmining.com/dtm) e [capítulo 6 (modelagem de tópicos)](https://www.tidytextmining.com/topicmodeling).
 
+### Materiais complementares opcionais — ao final ou após a aula
 
-Utilizaremos um _corpus_ de textos de verbetes da Wikipédia sobre os parques nacionais brasileiros. Trabalharemos com `stringr`, expressões regulares, tokenização, *stopwords*, frequências, bigramas, trigramas e nuvens de palavras.
+Os dois tutoriais abaixo usam o mesmo corpus de discursos, mas **não fazem parte do percurso obrigatório do encontro de hoje**. Serão disponibilizados ao final da aula para quem quiser explorar outros procedimentos de análise de textos no próprio ritmo.
 
-**[Ler o tutorial](tutoriais/01_textos_como_dados_parques.md)** · [Versão R Markdown](tutoriais/01_textos_como_dados_parques.Rmd)
+**[Tutorial 4 — Análise de sentimentos nos discursos de Lula (Rmd)](tutoriais/04_sentimentos_discursos_lula.Rmd)**
 
-#### Tutorial 2 — Como representar textos para análise e modelagem?
+Usaremos o léxico em português OpLexicon para associar palavras a polaridades positivas e negativas, comparar discursos sobre o combate à fome e observar a variação do saldo lexical ao longo das falas. O exercício mostra também os limites de classificar palavras isoladas. A análise por dicionário é uma regra lexical, não um modelo de aprendizado não supervisionado.
 
-Com exemplos curtos e quatro romances de Machado de Assis, estudaremos *bag-of-words*, matrizes documento-termo (DTM/DFM), contagens, presença e ausência de palavras, TF, IDF e TF-IDF. Em seguida, examinaremos n-gramas, coocorrências, embeddings e sequências ordenadas para distinguir **organização dos dados**, **representação textual** e **modelo**.
+*Referência:* [Silge e Robinson, capítulo 2](https://www.tidytextmining.com/sentiment.html).
 
-**[Ler o tutorial](tutoriais/02_representacoes_textuais.md)** · [Versão R Markdown](tutoriais/02_representacoes_textuais.Rmd)
+**[Tutorial 5 — Relações entre palavras nos discursos de Lula (Rmd)](tutoriais/05_relacoes_entre_termos_lula.Rmd)**
 
-### Aula 2 — Exploração e aprendizado não supervisionado
+Vamos construir bigramas e trigramas, contar coocorrências por parágrafo e calcular correlações phi entre palavras. A palavra *fome* será o ponto de partida para distinguir adjacência, frequência conjunta e associação, voltando aos parágrafos para interpretar os resultados.
 
-**Terça-feira, 24/11 · 4 horas · Tutoriais 3, 4 e 5**
+*Referência:* [Silge e Robinson, capítulo 4](https://www.tidytextmining.com/ngrams.html).
 
-Na segunda aula, passaremos da representação dos textos à exploração de seus conteúdos. A referência principal será o livro *Text Mining with R*, de Julia Silge e David Robinson. Entre os exemplos previstos estão discursos presidenciais em português, especialmente discursos de Luiz Inácio Lula da Silva, que permitem explorar vocabulário, associações entre termos e diferenças entre documentos.
+## Aula 3 — Aprendizado supervisionado de textos
 
-Os tutoriais serão disponibilizados em breve.
+**26/11/2026 · 4 horas**
 
-### Aula 3 — Aprendizado supervisionado: do problema à avaliação
+No terceiro encontro, passaremos da exploração de textos sem rótulos à construção de modelos para prever uma variável de resposta. Trabalharemos a formulação do problema, a preparação dos textos, a divisão em treino, validação e teste, a comparação de modelos e a avaliação de previsões. A classificação de reclamações financeiras será uma referência prática; a regressão e a previsão do ano de decisões judiciais servirão como contraponto. Discutiremos também o uso de embeddings como representação para modelos supervisionados.
 
-**Quinta-feira, 26/11 · 4 horas · Tutoriais 6, 7 e 8**
+Os materiais do terceiro encontro serão publicados posteriormente. A referência principal é Hvitfeldt e Silge, *Supervised Machine Learning for Text Analysis in R*, especialmente os capítulos sobre tokenização, embeddings, regressão e classificação.
 
-No terceiro encontro, estudaremos situações nas quais, além dos textos, conhecemos uma variável que queremos prever. A referência será *Supervised Machine Learning for Text Analysis in R*, de Emil Hvitfeldt e Julia Silge.
+## Atividades assíncronas
 
-## Materiais disponíveis
+O curso inclui duas atividades de aproximadamente quatro horas, relacionadas à exploração de textos e à avaliação de modelos supervisionados. Os encaminhamentos serão apresentados nos encontros. Os tutoriais opcionais da Aula 2 são recursos para estudo complementar.
 
-| Material | Conteúdo | Arquivos |
-|---|---|---|
-| **Tutorial 0 (opcional)** | Revisão de R, RStudio, `tidyverse` e operações com *data frames* | [Markdown](tutoriais/00_tutorial_inicial_r.md) · [R Markdown](tutoriais/00_tutorial_inicial_r.Rmd) |
-| **Tutorial 1** | Preparação, tokenização e exploração dos textos dos parques nacionais | [Markdown](tutoriais/01_textos_como_dados_parques.md) · [R Markdown](tutoriais/01_textos_como_dados_parques.Rmd) |
-| **Tutorial 2** | Representações textuais e exemplos com quatro romances de Machado de Assis | [Markdown](tutoriais/02_representacoes_textuais.md) · [R Markdown](tutoriais/02_representacoes_textuais.Rmd) |
+## Como acompanhar
 
-Os **Tutoriais 3 a 8** integram a programação dos encontros seguintes, mas ainda não estão publicados.
+Os tutoriais estão na pasta [`tutoriais/`](tutoriais/). Abra os arquivos `.Rmd` no RStudio e execute os blocos de código em ordem. Também é possível compilá-los em HTML ou, quando configurado, em Markdown para leitura no GitHub.
 
-## Bibliografia e referências
+Para a Aula 2, instale os pacotes necessários ao Tutorial 3 (apenas se ainda não estiverem instalados):
 
-**Livros recomebdadas**
+```r
+install.packages(c("tidyverse", "tidytext", "stopwords", "topicmodels", "reshape2"))
+```
 
-- Julia Silge e David Robinson. [*Text Mining with R: A Tidy Approach*](https://www.tidytextmining.com/). Referência para a preparação e a exploração de textos, a análise lexical de sentimentos, as relações entre palavras e a modelagem de tópicos.
-- Emil Hvitfeldt e Julia Silge. [*Supervised Machine Learning for Text Analysis in R*](https://smltar.com/). Referência para representações textuais, preparação de preditores e avaliação de modelos de aprendizado supervisionado.
+Para os tutoriais opcionais 4 e 5, instale também:
+
+```r
+install.packages(c("lexiconPT", "stringi", "widyr"))
+```
+
+Para compilar os Rmd, é necessário ter o pacote `rmarkdown` e o Pandoc (normalmente disponível com o RStudio).
+
+Os Tutoriais 3, 4 e 5 leem o mesmo RDS diretamente do GitHub. Não é preciso executar novamente a raspagem, baixar o corpus manualmente ou ajustar o diretório de trabalho para esses tutoriais. Cada tutorial é independente. É necessária conexão à internet para a leitura remota.
+
+## Dados
+
+A pasta [`data/`](data/) contém os dados utilizados no curso. Consulte o [README dos dados](data/README.md) para conhecer os arquivos, formatos e endereços públicos.
+
+- Aula 1: corpus dos parques nacionais, amostra didática e quatro romances de Machado de Assis.
+- Aula 2: [`corpus_discursos_lula.rds`](data/corpus_discursos_lula.rds), utilizado nos Tutoriais 3, 4 e 5.
+
+## Bibliografia
+
+- Julia Silge e David Robinson. [*Text Mining with R: A Tidy Approach*](https://www.tidytextmining.com/).
+- Emil Hvitfeldt e Julia Silge. [*Supervised Machine Learning for Text Analysis in R*](https://smltar.com/).
