@@ -247,21 +247,7 @@ Nas próximas seções vamos explorar essas duas outras métricas: TF e TF-IDF. 
 Agora vamos trabalhar com quatro romances de Machado de Assis: *Memórias Póstumas de Brás Cubas*, *Quincas Borba*, *Dom Casmurro* e *Esaú e Jacó*. O arquivo de dados contém os textos completos, com **um livro por documento**. Ele está na pasta `data/` e também pode ser acessado pelo endereço público do repositório.
 
 ```{r}
-url_dados <- paste0(
-  "https://raw.githubusercontent.com/leobarone/",
-  "cebrap-lab-analise-textos-r-2026-virtual/main/",
-  "data/corpus_machado_4_romances.rds"
-)
-
-arquivo_dados <- "data/corpus_machado_4_romances.rds"
-
-if (file.exists(arquivo_dados)) {
-  livros <- readr::read_rds(arquivo_dados)
-} else {
-  conexao <- url(url_dados, open = "rb")
-  livros <- readRDS(conexao)
-  close(conexao)
-}
+livros <- read_rds("https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/corpus_machado_4_romances.rds")
 
 livros <- livros %>%
   transmute(livro = as.character(book), texto = text)
