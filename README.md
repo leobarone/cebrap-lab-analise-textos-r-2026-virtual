@@ -89,15 +89,33 @@ Exploraremos bigramas, trigramas, coocorrências e correlações entre palavras.
 
 **[Ler o tutorial](tutoriais/05_relacoes_entre_termos_lula.md)** · [Versão R Markdown](tutoriais/05_relacoes_entre_termos_lula.Rmd) · [Leitura de referência: Silge e Robinson, cap. 4](https://www.tidytextmining.com/ngrams)
 
-Os três tutoriais utilizam o arquivo [`corpus_discursos_lula.rds`](data/corpus_discursos_lula.rds), que será lido diretamente do repositório pelos códigos em R. Não é necessário realizar novamente a raspagem dos discursos. Informações sobre as bases utilizadas no curso estão em [`data/README.md`](data/README.md).
+Os três tutoriais utilizam o arquivo [`corpus_discursos_lula.rds`](https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/corpus_discursos_lula.rds), que será lido diretamente do repositório pelos códigos em R. Não é necessário realizar novamente a raspagem dos discursos. Informações sobre as bases utilizadas no curso estão em [`data/README.md`](data/README.md).
 
 ### Aula 3 — Aprendizado supervisionado: do problema à avaliação
 
-**Quinta-feira, 26/11 · 3 horas · Tutoriais 6, 7 e 8**
+**Quinta-feira, 26/11 · 3 horas · Tutoriais 6 e 7**
 
 No terceiro encontro, estudaremos situações nas quais, além dos textos, conhecemos uma variável que queremos prever. A referência será *Supervised Machine Learning for Text Analysis in R*, de Emil Hvitfeldt e Julia Silge.
 
-Os tutoriais deste encontro serão disponibilizados conforme o andamento do curso.
+Utilizaremos um corpus de discursos da Câmara dos Deputados, coletados a partir da API de Dados Abertos. Vamos escolher, dentro do corpus completo, os sumários de pronunciamentos do tipo `BREVES COMUNICAÇÕES` com dois rótulos partidários (PT e PL). A divisão entre treinamento e teste será feita por parlamentar, de modo que os modelos sejam avaliados com documentos de autores que não participaram do treinamento.
+
+A questão que orienta a aula é: **como a maneira de representar um texto e o algoritmo utilizado influenciam a capacidade de prever uma categoria conhecida?**
+
+#### Tutorial 6 — Do vocabulário à classificação supervisionada de textos
+
+Retomaremos a análise exploratória das palavras, as frequências relativas e o TF-IDF. Construiremos matrizes de preditores com o mesmo vocabulário do treinamento, ajustaremos um modelo nulo, um Naive Bayes e uma regressão logística regularizada com LASSO. Aprenderemos a produzir previsões, interpretar matrizes de confusão, calcular acurácia, acurácia balanceada e ROC AUC, e examinar os coeficientes selecionados pelo LASSO.
+
+**[Ler o tutorial](tutoriais/06_classificacao_supervisionada_discursos.md)** · [Versão R Markdown](tutoriais/06_classificacao_supervisionada_discursos.Rmd)
+
+#### Tutorial 7 — Comparando modelos e representações textuais
+
+Daremos continuidade ao exercício com uma SVM linear e uma Random Forest. Compararemos os classificadores mantendo a representação TF-IDF constante. Em seguida, recuperaremos o LDA da Aula 2: em vez de utilizar os pesos de mil palavras, representaremos os discursos pelas participações de seis tópicos e ajustaremos uma regressão logística. Voltaremos aos textos originais para interpretar os erros de classificação e discutir as informações preservadas e perdidas nas representações.
+
+**[Ler o tutorial](tutoriais/07_comparando_modelos_representacoes.md)** · [Versão R Markdown](tutoriais/07_comparando_modelos_representacoes.Rmd)
+
+Os dois tutoriais partem do mesmo [CSV completo de discursos da Câmara](https://github.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/raw/refs/heads/main/data/corpus_discursos.csv), publicado em `data/corpus_discursos.csv`. A comparação utiliza configurações fixas, sem busca de hiperparâmetros no teste. A estratégia com treino, validação e teste é discutida como possibilidade de aprofundamento.
+
+**Leitura de referência:** [Hvitfeldt e Silge, visão geral do aprendizado supervisionado](https://smltar.com/mloverview) e [cap. 7 — Classificação](https://smltar.com/mlclassification).
 
 ## Materiais disponíveis
 
@@ -109,8 +127,26 @@ Os tutoriais deste encontro serão disponibilizados conforme o andamento do curs
 | **Tutorial 3** | TF-IDF e modelagem de tópicos com LDA nos discursos de Lula — material principal da Aula 2 | [Markdown](tutoriais/03_modelagem_topicos_lula.md) · [R Markdown](tutoriais/03_modelagem_topicos_lula.Rmd) |
 | **Tutorial 4 (opcional)** | Análise de sentimentos nos discursos de Lula — material complementar da Aula 2 | [Markdown](tutoriais/04_sentimentos_discursos_lula.md) · [R Markdown](tutoriais/04_sentimentos_discursos_lula.Rmd) |
 | **Tutorial 5 (opcional)** | Bigramas, trigramas, coocorrências e associações entre termos — material complementar da Aula 2 | [Markdown](tutoriais/05_relacoes_entre_termos_lula.md) · [R Markdown](tutoriais/05_relacoes_entre_termos_lula.Rmd) |
+| **Tutorial 6** | Classificação supervisionada, treino e teste por parlamentar, Naive Bayes e LASSO | [Markdown](tutoriais/06_classificacao_supervisionada_discursos.md) · [R Markdown](tutoriais/06_classificacao_supervisionada_discursos.Rmd) |
+| **Tutorial 7** | SVM, Random Forest, LDA como representação e comparação de classificadores | [Markdown](tutoriais/07_comparando_modelos_representacoes.md) · [R Markdown](tutoriais/07_comparando_modelos_representacoes.Rmd) |
 
-Os **Tutoriais 6 a 8** integram a programação do terceiro encontro, mas ainda não estão publicados.
+As versões Markdown dos tutoriais 6 e 7 são geradas ao compilar os respectivos R Markdown com a opção `github_document`. Os links para essas versões ficam disponíveis após a publicação dos arquivos compilados.
+
+## Bases de dados
+
+Os tutoriais leem as bases diretamente pelos endereços do repositório. Não é necessário repetir a coleta de dados. Os arquivos das aulas anteriores mantêm seus formatos originais, enquanto os dois tutoriais da Aula 3 leem diretamente o CSV completo, sem recorrer ao ZIP.
+
+| Base | Tutorial | Download direto |
+|---|---|---|
+| Amostra de parques nacionais | 0 | [`parques_exemplo_didatico.csv`](https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/parques_exemplo_didatico.csv) |
+| Parques nacionais (corpus completo) | 1 | [`tabelas-parques-utf8.csv`](https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/tabelas-parques-utf8.csv) |
+| Quatro romances de Machado de Assis | 2 | [`corpus_machado_4_romances.rds`](https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/corpus_machado_4_romances.rds) |
+| Discursos de Lula | 3, 4 e 5 | [`corpus_discursos_lula.rds`](https://raw.githubusercontent.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/main/data/corpus_discursos_lula.rds) |
+| Discursos da Câmara dos Deputados | 6 e 7 | [`corpus_discursos.csv`](https://github.com/leobarone/cebrap-lab-analise-textos-r-2026-virtual/raw/refs/heads/main/data/corpus_discursos.csv) |
+
+A descrição das bases está em [`data/README.md`](data/README.md), complementada por [`data/README_aula3.md`](data/README_aula3.md) para os discursos parlamentares.
+
+**Nota de publicação do CSV completo:** o arquivo original tem aproximadamente 168 MB, acima do limite de 100 MiB para arquivos regulares do GitHub. Para publicá-lo na pasta `data/`, utilize Git LFS. O link de download direto dos dois tutoriais aponta para o arquivo CSV no branch `main` e deve retornar seu conteúdo após a publicação. Consulte as instruções no [README dos dados da Aula 3](data/README_aula3.md).
 
 ## Bibliografia e referências
 
